@@ -1,6 +1,5 @@
 import nltk
 import matplotlib.pyplot as plt
-from mpmath import limit
 from nltk.corpus import stopwords
 from nltk import pos_tag
 from nltk.tokenize import sent_tokenize
@@ -9,11 +8,8 @@ from nltk.probability import FreqDist
 from wordcloud import WordCloud
 
 # nltk.download('stopwords')
-# nltk.download('punkt')
+nltk.download('punkt')
 # nltk.download('averaged_perceptron_tagger_eng')
-
-#Store file directory as TextFile
-textfile = 'data/fruits.txt'
 
 #Function to read text from file
 def read_text_from_file(filepath):
@@ -42,12 +38,6 @@ def tokenize_text_by_word(text):
     words = word_tokenize(text)
     print(f"Tokenized Words: ({len(words)}): {words}\n\n") #how many words are there?
     return words
-
-# Find the frequency
-def find_word_frequency(words):
-    frequency_distribution = FreqDist(words)
-    print(f"Word Frequencies: {frequency_distribution.most_common(10)}\n\n") # Print the 10 most frequent words
-    return frequency_distribution
 
 # plot the most 10 frequent words
 def plot_word_frequency(frequency_distribution):
@@ -109,7 +99,7 @@ def find_parts_of_speech(words_in_list, limit_words):
 
     print("\nPoS Tagging Result:")
     for word, tag in limited_pos_tags:
-        print(f"{word}: {pos_tag}")
+        print(f"{word}: {tag}")
 
     return limited_pos_tags
 
@@ -137,7 +127,8 @@ def display_word_cloud(words):
 
     return wordcloud
 
-
+#Store file directory as TextFile
+textfile = 'data/fruits.txt' # Global variable
 
 ## Main function to process the text
 def text_preprocessing(textfile):
@@ -149,8 +140,8 @@ def text_preprocessing(textfile):
     print("Processing.........")
 
     ## Check for the text file type
-    textType = check_text_type(text)
-    print(textType)
+    text_type = check_text_type(text)
+    print(text_type)
 
     #Check length of text file
     text_len = check_length_of_text(text)
@@ -188,7 +179,7 @@ def text_preprocessing(textfile):
 
     # Return multiple results
     return {
-        "textType": textType,
+        "textType": text_type,
         "text_len": text_len,
         "token_text_by_sent": token_text_by_sent,
         "tokenized_text_by_word": tokenized_text_by_word,
